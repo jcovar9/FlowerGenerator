@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwr043netjyqm"]
+
+[ext_resource type="Texture2D" uid="uid://c2ljehwse3pwo" path="res://icon.svg" id="1_eet0s"]
+[ext_resource type="Script" path="res://flower_grower.gd" id="2_aplye"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ahfni"]
+
+[node name="MainScene" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.90664, 4.31628)
+
+[node name="Floor" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+pixel_size = 0.05
+texture = ExtResource("1_eet0s")
+
+[node name="FlowerGrower" type="Marker3D" parent="."]
+script = ExtResource("2_aplye")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FlowerGrower"]
+visible = false
+mesh = SubResource("CylinderMesh_ahfni")

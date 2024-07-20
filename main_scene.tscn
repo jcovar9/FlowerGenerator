@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://dwr043netjyqm"]
+
+[ext_resource type="Texture2D" uid="uid://c2ljehwse3pwo" path="res://icon.svg" id="1_eet0s"]
+[ext_resource type="Script" path="res://Scripts/camera_movement.gd" id="1_ltqbk"]
+[ext_resource type="Script" path="res://Scripts/stem.gd" id="2_aplye"]
+[ext_resource type="Shader" path="res://Shaders/stem_shader.gdshader" id="4_mn17e"]
+[ext_resource type="Script" path="res://Scripts/flower.gd" id="5_1qx5k"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h2uve"]
+render_priority = 0
+shader = ExtResource("4_mn17e")
+shader_parameter/xa = null
+shader_parameter/xb = null
+shader_parameter/xc = null
+shader_parameter/za = null
+shader_parameter/zb = null
+shader_parameter/zc = null
+shader_parameter/height = 1.0
+shader_parameter/startRadius = 0.1
+shader_parameter/endRadius = 0.025
+
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_1owu8"]
+material = SubResource("ShaderMaterial_h2uve")
+
+[node name="MainScene" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.50848, 6.00017)
+script = ExtResource("1_ltqbk")
+
+[node name="Floor" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+pixel_size = 0.05
+texture = ExtResource("1_eet0s")
+
+[node name="Stem" type="Node3D" parent="."]
+script = ExtResource("2_aplye")
+stem_shader = ExtResource("4_mn17e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Stem"]
+visible = false
+mesh = SubResource("TubeTrailMesh_1owu8")
+
+[node name="Flower" type="Node3D" parent="Stem"]
+script = ExtResource("5_1qx5k")
