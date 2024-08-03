@@ -45,10 +45,18 @@ func update_seed_data():
 	stem_shader_material.set_shader_parameter("za", za)
 	stem_shader_material.set_shader_parameter("zb", zb)
 	stem_shader_material.set_shader_parameter("zc", zc)
+	update_flower()
 
 func update_height_data():
 	stem.mesh.section_length = height / stem.mesh.sections
 	stem_shader_material.set_shader_parameter("height", height)
+	update_flower()
+
+func update_flower():
+	var stem_top_x : float = (sin(height * xa) + sin(height * xb) + sin(height * xc)) * 0.1
+	var stem_top_z : float = (sin(height * za) + sin(height * zb) + sin(height * zc)) * 0.1
+	var flower := Flower.new(rng, Vector3(stem_top_x, height, stem_top_z))
+	add_child(flower)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -63,6 +71,4 @@ func _ready() -> void:
 	update_seed_data()
 	update_height_data()
 	add_child(stem)
-	var stem_top_x : float = (sin(height * xa) + sin(height * xb) + sin(height * xc)) * 0.1
-	var stem_top_z : float = (sin(height * za) + sin(height * zb) + sin(height * zc)) * 0.1
-	var flower := Flower.new(Vector3(stem_top_x, height, stem_top_z))
+	update_flower()
