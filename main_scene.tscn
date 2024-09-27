@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://dwr043netjyqm"]
+
+[ext_resource type="Texture2D" uid="uid://c2ljehwse3pwo" path="res://icon.svg" id="1_eet0s"]
+[ext_resource type="Script" path="res://Scripts/camera_movement.gd" id="1_ltqbk"]
+[ext_resource type="Script" path="res://Scripts/FlowerBuilder.gd" id="3_32hd4"]
+[ext_resource type="Shader" path="res://Shaders/stem_shader.gdshader" id="4_mn17e"]
+[ext_resource type="Shader" path="res://Shaders/flower_shader.gdshader" id="5_nes7o"]
+
+[node name="MainScene" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("flower_grower")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.50848, 6.00017)
+script = ExtResource("1_ltqbk")
+flower_grower = NodePath("../FlowerBuilder")
+
+[node name="Floor" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+pixel_size = 0.05
+texture = ExtResource("1_eet0s")
+
+[node name="FlowerBuilder" type="Node3D" parent="."]
+script = ExtResource("3_32hd4")
+stem_shader = ExtResource("4_mn17e")
+flower_shader = ExtResource("5_nes7o")
