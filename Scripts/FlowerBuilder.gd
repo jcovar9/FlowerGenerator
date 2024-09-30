@@ -5,24 +5,25 @@ extends Node3D
 	set(new_seed):
 		seed = new_seed
 		rng.set_seed(seed)
-		stem.update_seed_data()
-		flower.update_pos_and_rot()
+		stem_object.queue_free()
+		stem_object = stem.new(stem_shader, rng, Vector3.ZERO, Vector3.UP)
+		add_child(stem_object)
 
 @export
 var stem_shader : Shader
-var stem : stem_object
+var stem_object : stem
 var rng := RandomNumberGenerator.new()
 @export
 var flower_shader : Shader
-var flower : flower_object
+#var flower : flower_head
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	rng.set_seed(seed)
-	stem = stem_object.new(stem_shader, rng)
-	add_child(stem)
-	flower = flower_object.new(flower_shader, rng, stem)
-	add_child(flower)
+	stem_object = stem.new(stem_shader, rng, Vector3.ZERO, Vector3.UP)
+	add_child(stem_object)
+	#flower = flower_head.new(flower_shader, rng, stem_object)
+	#add_child(flower)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
