@@ -1,7 +1,5 @@
 shader_type spatial;
 
-uniform vec3 position;
-uniform vec3 angle;
 
 //vec2 rotateZ(float x, float y, float rotation) {
 	//float sinRot = sin(rotation);
