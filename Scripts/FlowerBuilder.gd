@@ -24,7 +24,6 @@ func create_root_stem() -> void:
 	rng.set_seed(seed)
 	root_stem = stem.new(stem_shader, flower_head_shader, rng, Vector3.ZERO, Vector3(0,1,0))
 	add_child(root_stem)
-	root_stem.rotate_x(deg_to_rad(90))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

@@ -20,11 +20,6 @@ texture = ExtResource("1_eet0s")
 
 [node name="FlowerBuilder" type="Node3D" parent="."]
 script = ExtResource("3_32hd4")
+seed = 7
 stem_shader = ExtResource("4_mn17e")
 flower_head_shader = ExtResource("5_nes7o")
-
-[node name="look_at_target" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.799, 0.84, -1.691)
-
-[node name="look_at_target2" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, -0.078, -1.351)

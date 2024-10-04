@@ -1,11 +1,17 @@
 class_name stem
 extends Node3D
 
+var look_at_target : Vector3
+
+# Stem fields
 var stem_mesh := MeshInstance3D.new()
+var stem_shader : Shader
+
+# Flower fields
 var flower : flower_head
 var flower_head_shader : Shader
-var pointing_towards : Vector3
 
+# RNG fields
 var rng:RandomNumberGenerator
 var height : float
 var start_radius : float
@@ -13,18 +19,22 @@ var end_radius : float
 var xcurve : Array
 var zcurve : Array
 
-func _init(stem_shader:Shader, flower_shader:Shader, rng:RandomNumberGenerator, offset:Vector3, point_towards:Vector3) -> void:
+func _init(stem_shader:Shader, flower_head_shader:Shader, rng:RandomNumberGenerator, offset:Vector3, look_at_target:Vector3) -> void:
+	self.stem_shader = stem_shader
+	self.flower_head_shader = flower_head_shader
+	self.rng = rng
+	self.position = offset
+	self.look_at_target = look_at_target
+	create_mesh()
+	set_rng_values()
+	set_shader_values()
+
+func create_mesh() -> void:
 	stem_mesh.mesh = TubeTrailMesh.new()
 	stem_mesh.mesh.material = ShaderMaterial.new()
 	stem_mesh.mesh.material.shader = stem_shader
-	self.flower_head_shader = flower_shader
-	self.rng = rng
-	set_rng_values()
-	set_shader_values()
 	stem_mesh.rotate_x(deg_to_rad(-90))  # align mesh with stem node's forward direction
 	add_child(stem_mesh)
-	position = offset
-	pointing_towards = point_towards
 
 func set_rng_values() -> void:
 	xcurve = [rng.randf_range(-3.0, 3.0), rng.randf_range(-3.0, 3.0), rng.randf_range(-3.0, 3.0)]
@@ -43,7 +53,7 @@ func set_shader_values() -> void:
 func get_curve_value(curve:Array, y_value:float) -> float:
 	return (sin(y_value * curve[0]) + sin(y_value * curve[1]) + sin(y_value * curve[2])) * 0.1
 
-# Gets the position of the stem at a y_value if mesh is pointing up
+# Gets the position of the stem at a y_value when mesh is pointing up
 func get_stem_pos(y_value:float) -> Vector3:
 	var stem_tip_x := get_curve_value(xcurve, y_value)
 	var stem_tip_z := get_curve_value(zcurve, y_value)
@@ -55,6 +65,8 @@ func get_local_stem_pos(y_value:float) -> Vector3:
 	return stem_pos.rotated(Vector3.RIGHT, deg_to_rad(-90))
 
 func _ready() -> void:
-	#look_at(pointing_towards)
 	flower = flower_head.new(flower_head_shader, rng, get_local_stem_pos(height), to_global(get_local_stem_pos(height + 0.01)))
 	add_child(flower)
+	if(look_at_target.x == 0.0 or look_at_target.z == 0.0):
+		look_at_target += Vector3(.001,0,0)
+	look_at(look_at_target)
