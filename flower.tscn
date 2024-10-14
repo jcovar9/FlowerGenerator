@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://4nvq37igq6td"]
+
+[ext_resource type="Script" path="res://Scripts/flower.gd" id="1_kacu8"]
+[ext_resource type="Shader" path="res://Shaders/flower_shader.gdshader" id="2_7i7qs"]
+[ext_resource type="Script" path="res://Scripts/flower_head.gd" id="4_oxd4r"]
+[ext_resource type="PackedScene" uid="uid://coot606l3f3h6" path="res://petal.tscn" id="4_vmhly"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1j6vg"]
+render_priority = 0
+shader = ExtResource("2_7i7qs")
+
+[sub_resource type="SphereMesh" id="SphereMesh_x8dfy"]
+material = SubResource("ShaderMaterial_1j6vg")
+height = 0.5
+radial_segments = 20
+rings = 20
+is_hemisphere = true
+
+[node name="Flower" type="Node3D" node_paths=PackedStringArray("flower_head")]
+script = ExtResource("1_kacu8")
+flower_head = NodePath("Flower Head")
+
+[node name="Flower Head" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("SphereMesh_x8dfy")
+script = ExtResource("4_oxd4r")
+
+[node name="Petal" parent="Flower Head" instance=ExtResource("4_vmhly")]

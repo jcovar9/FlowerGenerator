@@ -11,6 +11,8 @@ var stem_shader : Shader
 var flower : flower_head
 var flower_head_shader : Shader
 
+var petal_shader : Shader
+
 # RNG fields
 var rng:RandomNumberGenerator
 var height : float
@@ -19,9 +21,10 @@ var end_radius : float
 var xcurve : Array
 var zcurve : Array
 
-func _init(stem_shader:Shader, flower_head_shader:Shader, rng:RandomNumberGenerator, offset:Vector3, look_at_target:Vector3) -> void:
+func _init(stem_shader:Shader, flower_head_shader:Shader, petal_shader:Shader, rng:RandomNumberGenerator, offset:Vector3, look_at_target:Vector3) -> void:
 	self.stem_shader = stem_shader
 	self.flower_head_shader = flower_head_shader
+	self.petal_shader = petal_shader
 	self.rng = rng
 	self.position = offset
 	self.look_at_target = look_at_target
@@ -65,7 +68,7 @@ func get_local_stem_pos(y_value:float) -> Vector3:
 	return stem_pos.rotated(Vector3.RIGHT, deg_to_rad(-90))
 
 func _ready() -> void:
-	flower = flower_head.new(flower_head_shader, rng, get_local_stem_pos(height), to_global(get_local_stem_pos(height + 0.01)))
+	flower = flower_head.new(flower_head_shader, petal_shader, rng, get_local_stem_pos(height), to_global(get_local_stem_pos(height + 0.01)))
 	add_child(flower)
 	if(look_at_target.x == 0.0 or look_at_target.z == 0.0):
 		look_at_target += Vector3(.001,0,0)

@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://dwr043netjyqm"]
+[gd_scene load_steps=8 format=3 uid="uid://dwr043netjyqm"]
 
 [ext_resource type="Texture2D" uid="uid://c2ljehwse3pwo" path="res://icon.svg" id="1_eet0s"]
 [ext_resource type="Script" path="res://Scripts/camera_movement.gd" id="1_ltqbk"]
 [ext_resource type="Script" path="res://Scripts/FlowerBuilder.gd" id="3_32hd4"]
 [ext_resource type="Shader" path="res://Shaders/stem_shader.gdshader" id="4_mn17e"]
 [ext_resource type="Shader" path="res://Shaders/flower_shader.gdshader" id="5_nes7o"]
+[ext_resource type="Shader" path="res://Shaders/petal_shader.gdshader" id="6_swgop"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xae4b"]
 
 [node name="MainScene" type="Node3D"]
 
@@ -20,6 +23,10 @@ texture = ExtResource("1_eet0s")
 
 [node name="FlowerBuilder" type="Node3D" parent="."]
 script = ExtResource("3_32hd4")
-seed = 7
 stem_shader = ExtResource("4_mn17e")
 flower_head_shader = ExtResource("5_nes7o")
+petal_shader = ExtResource("6_swgop")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FlowerBuilder"]
+visible = false
+mesh = SubResource("PlaneMesh_xae4b")

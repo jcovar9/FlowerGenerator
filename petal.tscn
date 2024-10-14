@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://coot606l3f3h6"]
+
+[ext_resource type="Shader" path="res://Shaders/petal_shader.gdshader" id="1_cge8l"]
+[ext_resource type="Script" path="res://Scripts/petal.gd" id="2_fcmt8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k07co"]
+render_priority = 0
+shader = ExtResource("1_cge8l")
+
+[sub_resource type="QuadMesh" id="QuadMesh_ti3ur"]
+material = SubResource("ShaderMaterial_k07co")
+subdivide_width = 1
+subdivide_depth = 10
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0o84y"]
+render_priority = 0
+shader = ExtResource("1_cge8l")
+
+[sub_resource type="QuadMesh" id="QuadMesh_sqa3f"]
+material = SubResource("ShaderMaterial_0o84y")
+flip_faces = true
+subdivide_width = 1
+subdivide_depth = 5
+
+[node name="Petal" type="Node3D"]
+script = ExtResource("2_fcmt8")
+
+[node name="Normal Face" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_ti3ur")
+
+[node name="Flipped Face" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_sqa3f")
